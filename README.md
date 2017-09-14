@@ -1,5 +1,5 @@
 # tweetCorp
-tweetCorp: An R package to work with Twitter corpora
+tweetCorp: An R package to work with my Twitter corpora
 
 This package contains functions to search, enrich, or filter a corpus consisting of CSV files. It assumes the columns that are returned by the Twitter Search API.
 
