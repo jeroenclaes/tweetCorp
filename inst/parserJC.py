@@ -11,18 +11,13 @@ reload(sys)  # Reload does the trick!
 sys.setdefaultencoding('UTF8')
 #/JC
 #
-ROOT_DIR = os.path.expanduser(sys.args[1]) 
-PARSER_EVAL = ROOT_DIR +'bazel-bin/syntaxnet/parser_eval'
-#MODEL_DIR = 'syntaxnet/models/parsey_mcparseface'
-MODELS_DIR = ROOT_DIR+'syntaxnet/models/'
-CONTEXT = ROOT_DIR+'syntaxnet/models/parsey_universal/context.pbtxt'
-
-#ENV VARS:
-#MODELS = [l.strip() for l in os.getenv('PARSEY_MODELS', 'English').split(',')]
-#MODELS=['English', 'Spanish-AnCora']
-#MODELS=['English']
 BATCH_SIZE = os.getenv('PARSEY_BATCH_SIZE', '1')
+ROOT_DIR = ''
+PARSER_EVAL = ''
+MODELS_DIR = ''
+CONTEXT = ''
 
+    
 def split_tokens(parse):
   # Format the result.
   def format_token(line):
@@ -175,8 +170,16 @@ def parse_sentences(sentences, request_args):
  # import sys, pprint
   #pprint.pprint(parse_sentence(sys.stdin.read().strip())["tree"])
 pipelines = {}
-def parseVector(languageModel, vector,  output):
+def parseVector(languageModel, vector,  output, installationDirectory):
     sys.stderr.write( "== Starting pipeline  ==\n")
+    global ROOT_DIR
+    ROOT_DIR = os.path.expanduser(installationDirectory)
+    global PARSER_EVAL
+    PARSER_EVAL = ROOT_DIR +'bazel-bin/syntaxnet/parser_eval'
+    global MODELS_DIR
+    MODELS_DIR = ROOT_DIR+'syntaxnet/models/'
+    global CONTEXT
+    CONTEXT = ROOT_DIR+'syntaxnet/models/parsey_universal/context.pbtxt'
     global pipelines
     pipelines[languageModel] = create_pipeline(languageModel)
     result=[]

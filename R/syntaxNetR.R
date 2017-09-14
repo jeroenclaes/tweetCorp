@@ -28,11 +28,11 @@ syntaxNetR<-function(tokenVector, syntaxNetPath=NULL, language=c("Ancient_Greek-
  logmessage("Writing vector", verbose)
 
   cat(tokenVector, file=paste0(getwd(), "/vector.txt"), sep="\n")
-  rPython::python.load(system.file(package = "tweetCorp", paste("inst/parserJC.py", syntaxNetPath)))
+  rPython::python.load(system.file(package = "tweetCorp", "inst/parserJC.py"))
 
   logmessage("Parsing", verbose)
 
-  parseMe<- rPython::python.call("parseVector", language, paste0(getwd(), "/vector.txt"), paste0(getwd(), "/output.json"))
+  parseMe<- rPython::python.call("parseVector", language, paste0(getwd(), "/vector.txt"), paste0(getwd(), "/output.json"), syntaxNetPath)
 
   if(parseMe=="done") {
 
