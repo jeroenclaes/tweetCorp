@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Title \\code{geocoder}: a function to geocode tweets by approximate string matching\n#' @description The function will first try to find exact matches for the full_names column of the corpus in the full_names column of the geoNames_output_file. For the records that do not provide an exact match, it will then perform approximate string matching based on Levenhstein distance. The first string in the GeoNames_output_file full_names column to match with a distance of less than maxDistance will be returned.This is done in multithreaded C++ code, so it should be reasonably fast even for larger vectors. Matching the one million strings with one million candidates takes about thirty minutes on my MacBook Pro.\n#' @param filtered_corpus Output of searchCorpus\n#' @param GeoNames_output_file csv file produced with the function GeoNames()\n#' @param maxDistance Maximum Levenhstein distance to use for approximate string matching. Defaults to 2 (i.e., max 2 deletions/insertions from input string to output string)\n#' @param nthreads Number of threads to use for the approximate string matching. Defaults to the number of CPUs available on your machine.\n#'\n#' @return data.frame lat, lon columns filled in based on the geoNames_output_file\n#' @export\n#' @import Rcpp\n#' @import RcppProgress\n#' @import readr\n#' @import dplyr\n#' @import parallel\n#' @import stringi\n\ngeocoder<-function(filtered_corpus, GeoNames_output_file, maxDistance=2, nthreads=parallel::detectCores()) {\n\n  geoNames<-readr::read_csv(GeoNames_output_file)\n  filtered_corpus <- filtered_corpus %>%\n    mutate(full_name=ifelse(is.na(full_name), location, full_name)) %>%\n    mutate(lon=ifelse(!is.na(place_lon), place_lon, lon), lat= ifelse(!is.na(place_lat), place_lat, lat)) %>%\n    mutate(full_name=stri_replace_all_regex(stri_replace_all_regex(full_name,\"[[:punct:]]\", \" \"), \"[ ]+\", \" \")) %>%\n    mutate(full_name=sapply(full_name, FUN=function(x) {\n      split<-stri_split_boundaries(stri_trim(x))\n      if(split[[1]][1] %in% c(\"el\", \"las\", \"the\", \"los\", \"la\", \"les\", \"a\", \"new\", \"nueva\")) {\n        return(paste(split[[1]][1], split[[1]][2]))\n      } else {\n        split[[1]][1]\n      }\n\n    }))\n\n  exactMatches<-filtered_corpus %>%\n    filter(is.na(lon) | is.na(lat)) %>%\n    select(-lon, -lat) %>%\n    left_join(geoNames)\n\n  toBeCompleted<- exactMatches %>%\n    filter(is.na(lon) | is.na(lat)) %>%\n    select(-lon, -lat)\n\n  key<-data.frame(full_name=unique(toBeCompleted$full_name), output=fuzzyMatch(unique(toBeCompleted$full_name), geoNames$full_name, maxDistance = maxDistance, nthreads = nthreads))\n\n  toBeCompleted<-toBeCompleted %>%\n    left_join(key, by=\"full_name\") %>%\n    select(-full_name) %>%\n    rename(output=full_name) %>%\n    left_join(geoNames)\n\n  exactMatches<-exactMatches %>%\n    filter(is.na(lon) | is.na(lat))\n  done<- filtered_corpus %>%\n    filter(!is.na(lon) | !is.na(lat)) %>%\n    bind_rows(toBeCompleted, exactMatches)\n\n  return(done)\n}\n",
+    "created" : 1505379723913.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2919905219",
+    "id" : "45AD3E27",
+    "lastKnownWriteTime" : 1505383320,
+    "last_content_update" : 1505383364145,
+    "path" : "~/Desktop/tweetCorp/R/geocoder.R",
+    "project_path" : "R/geocoder.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Simple function to generate logs with timestamps\n#'\n#' @param string The message\n#' @param verbose Verbosity: if TRUE, the function will print the message, if FALSE the function will do nothing at all\n#'\n#' @return None. The message with an added timestamp will be printed to the screen\n#' @export\n#'\n#' @examples\nlogmessage <- function(string, verbose=T) {\n  if(isTRUE(verbose)) {\n\n  print(paste(Sys.time(),  string, sep=\": \"))\n  }\n}\n",
+    "created" : 1505377865634.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1161091413",
+    "id" : "3DD76B59",
+    "lastKnownWriteTime" : 1505379198,
+    "last_content_update" : 1505379198826,
+    "path" : "~/Desktop/tweetCorp/R/logmessage.R",
+    "project_path" : "R/logmessage.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

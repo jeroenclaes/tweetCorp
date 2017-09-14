@@ -1,0 +1,25 @@
+Package: tweetCorp
+Type: Package
+Title: tweetCorp: A package to work with Twitter corpora
+Version: 0.1.0
+Authors@R: person("Jeroen", "Claes", email = "jeroen.claes@kuleuven.be",
+                  role = c("aut", "cre"))
+Author: Jeroen Claes <jeroen.claes@kuleuven.be>
+Maintainer: Jeroen Claes <jeroen.claes@kuleuven.be>
+Description: This package contains functions to search, filter, parse, and enrich    datafiles returned by the Twitter streaming API. 
+License: CC BY 2.0
+Encoding: UTF-8
+LazyData: true
+Imports: Rcpp (>= 0.12.12),
+    RcppProgress,
+    readr,
+    dplyr,
+    parallel,
+    stringi,
+    rvest,
+    httr,
+    rjson,
+    rPython
+LinkingTo: Rcpp,
+	RcppProgress
+RoxygenNote: 6.0.1
