@@ -12,7 +12,8 @@
 #' @export
 #' @import Rcpp
 #' @import RcppProgress
-fuzzyMatch <- function(needles, haystack, maxDistance, nthreads = 1L, displayProgress = TRUE) {
+#' @import parallel
+fuzzyMatch <- function(needles, haystack, maxDistance, nthreads = parallel::detectCores(), displayProgress = TRUE) {
     .Call('_tweetCorp_fuzzyMatch', PACKAGE = 'tweetCorp', needles, haystack, maxDistance, nthreads, displayProgress)
 }
 
