@@ -5,7 +5,7 @@ This package contains functions to search, enrich, or filter a corpus consisting
 
 # Installation
 
-To install the corpus, you need the package ```devtools```. You can install the package as follows:
+To install the package, you need the package ```devtools```. You can install the package as follows:
 ```
 #In case you don't have devtools installed
 install.packages("devtools")
