@@ -12,7 +12,7 @@
 #' @import parallel
 #' @import stringi
 
-addAgeGender<-function(filteredCorpus, language=c("English", "Spanish"), maxDistance=2, nthreads=parallel::detectCores()) {
+addAgeGender<-function(filtered_corpus, language=c("English", "Spanish"), maxDistance=2, nthreads=parallel::detectCores()) {
   language<-match.arg(language)
   database<-switch(language, English=english_baby_names, Spanish=spanish_baby_names)
 
