@@ -41,7 +41,10 @@ addAgeGender<-function(filtered_corpus, language=c("English", "Spanish"), maxDis
 
   exactMatches<-exactMatches %>%
     filter(!is.na(year))
-  done<-  dplyr::bind_rows(toBeCompleted, exactMatches)
+  done<-  dplyr::bind_rows(toBeCompleted, exactMatches) %>%
+    addTokenId() %>%
+    filter(!duplicated(tokenId)) %>%
+    select(-tokenId)
 
   return(done)
 
