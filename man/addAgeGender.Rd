@@ -4,15 +4,15 @@
 \alias{addAgeGender}
 \title{Function to enrich a filtered corpus with Twitter users' most likely age and gender, based on baby names statistics}
 \usage{
-addAgeGender(filteredCorpus, language = c("English", "Spanish"),
+addAgeGender(filtered_corpus, language = c("English", "Spanish"),
   maxDistance = 2, nthreads = parallel::detectCores())
 }
 \arguments{
-\item{filteredCorpus}{filtered corpus. Do not use on unfiltered data if you want to get results in this century.}
-
 \item{maxDistance}{maximum Levenhstein distance to use for approximate string matching. Defaults to 2}
 
 \item{nthreads}{number of threads to use in the C++ code for approximate string matching. Defaults to the number of CPU cores on your machine and it's probably a good idea to use that default.}
+
+\item{filteredCorpus}{filtered corpus. Do not use on unfiltered data if you want to get results in this century.}
 }
 \value{
 a data.frame with the two added columns: gender (column 'sex') and most likely year of birth (column 'year')

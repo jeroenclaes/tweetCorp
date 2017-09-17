@@ -28,7 +28,7 @@ Rcpp::StringVector fuzzyMatch(Rcpp::StringVector needles, Rcpp::StringVector hay
 #ifdef _OPENMP
   omp_set_num_threads( nthreads );
 #endif
-  Progress::Progress p(needles.size(), displayProgress);
+  Progress p(needles.size(), displayProgress);
 #pragma omp parallel for shared(needles,haystack, needleLength, haystackLength, p) schedule(dynamic)
   for(unsigned int a=0; a<needleLength; ++a){
     for(unsigned int y=0; y<haystackLength;++y){

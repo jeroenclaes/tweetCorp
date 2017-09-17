@@ -32,7 +32,7 @@ addAgeGender<-function(filtered_corpus, language=c("English", "Spanish"), maxDis
   toBeCompleted<-toBeCompleted %>%
     left_join(key, by="name") %>%
     select(-name) %>%
-    rename(output=full_name) %>%
+    rename(output=name) %>%
     left_join(database)
 
   exactMatches<-exactMatches %>%
