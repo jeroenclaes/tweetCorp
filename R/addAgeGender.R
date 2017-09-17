@@ -12,12 +12,14 @@
 #' @import parallel
 #' @import stringi
 
-addAgeGender<-function(filtered_corpus, language=c("English", "Spanish"), maxDistance=2, nthreads=parallel::detectCores()) {
+addAgeGender<-function(filtered_corpus, language=c("English", "Spanish"), maxDistance=1, nthreads=parallel::detectCores()) {
   language<-match.arg(language)
+  options(stringsAsFactors = F)
   database<-switch(language, English=english_baby_names, Spanish=spanish_baby_names)
 
   filtered_corpus <- filtered_corpus %>%
-    mutate(name=sapply(name, FUN=function(x) stri_split_boundaries(stri_trim(x))[[1]][1]))
+    mutate(name=sapply(name, FUN=function(x) stri_split_boundaries(stri_trim(x))[[1]][1])) %>%
+    mutate(name=stri_replace_all_regex(name, "[^[:alpha:]]", ""))
 
   exactMatches<-filtered_corpus %>%
     left_join(database, by="name")
@@ -31,8 +33,10 @@ addAgeGender<-function(filtered_corpus, language=c("English", "Spanish"), maxDis
 
   toBeCompleted<-toBeCompleted %>%
     left_join(key, by="name") %>%
+    mutate(output=ifelse(output=="", name, output)) %>%
     select(-name) %>%
-    rename(output=name) %>%
+    rename(name=output) %>%
+    filter(name!="") %>%
     left_join(database)
 
   exactMatches<-exactMatches %>%

@@ -5,7 +5,7 @@
 \title{Function to enrich a filtered corpus with Twitter users' most likely age and gender, based on baby names statistics}
 \usage{
 addAgeGender(filtered_corpus, language = c("English", "Spanish"),
-  maxDistance = 2, nthreads = parallel::detectCores())
+  maxDistance = 1, nthreads = parallel::detectCores())
 }
 \arguments{
 \item{maxDistance}{maximum Levenhstein distance to use for approximate string matching. Defaults to 2}
