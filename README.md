@@ -1,5 +1,6 @@
 # tweetCorp
-tweetCorp: An R package to work with my Twitter corpora
+tweetCorp: An R package to work with my Twitter corpora. 
+
 
 This package contains functions to search, enrich, or filter a corpus consisting of CSV files. It assumes the columns that are returned by the Twitter Search API.
 
@@ -19,7 +20,7 @@ The installation command will also install all of the package dependencies, exce
 
 Some of the functions in the package have not yet been tested very thorougly. I would appreciate if you'd file an issue report on GitHub if you bump into any problems. 
 
-#License
+# License
 The package and the corpus itself is released under the CC BY-SA license. If you use the functions in this package or if you use the data in publications, please cite as follows:
 
 - Claes, J. (2017). *TweetCorp: A corpus of global English tweets annotated with Google SyntaxNet*. Leuven: KU Leuven.
