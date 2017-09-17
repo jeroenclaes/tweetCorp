@@ -12,7 +12,10 @@ install.packages("devtools")
 devtools::install_github("jeroenclaes/tweetCorp")
 library(tweetCorp)
 ```
-This will also install all of the package dependencies, except for Google SyntaxNet. The syntaxNetR function provides an R binding for Google SyntaxNet, but it requires that you already have syntaxnet installed on your computer. You can find the installation instructions here: https://github.com/tensorflow/models/tree/master/syntaxnet (Linux/Mac only). 
+
+Mac Users may want to take the steps described in the following guide on the ```data.table``` wiki to enable OpenMP (multithreading in c++) support before installing the package. This will increase the speed of the string matching function dramatically. https://github.com/Rdatatable/data.table/wiki/Installation (under **OpenMP enabled compiler for Mac**). It OpenMP may cause problems for other packages, so don't forget to revert your changes after installation!
+
+The installation command will also install all of the package dependencies, except for Google SyntaxNet. The syntaxNetR function provides an R binding for Google SyntaxNet, but it requires that you already have syntaxnet installed on your computer. You can find the installation instructions here: https://github.com/tensorflow/models/tree/master/syntaxnet (Linux/Mac only). 
 
 Some of the functions in the package have not yet been tested very thorougly. I would appreciate if you'd file an issue report on GitHub if you bump into any problems. 
 
