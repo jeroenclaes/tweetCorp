@@ -30,8 +30,8 @@ Rcpp::StringVector fuzzyMatch(Rcpp::StringVector needles, Rcpp::StringVector hay
 #endif
   Progress p(needles.size(), displayProgress);
 #pragma omp parallel for shared(needles,haystack, needleLength, haystackLength, p) schedule(dynamic)
-  for(unsigned int a=0; a <= needleLength; ++a){
-    for(unsigned int y=0; y <= haystackLength;++y){
+  for(unsigned int a=0; a < needleLength; ++a){
+    for(unsigned int y=0; y < haystackLength;++y){
       if (!Progress::check_abort() ) {
 
         const std::size_t len1 = needles(a).size(), len2 = haystack(y).size();
