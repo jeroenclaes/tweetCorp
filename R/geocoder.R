@@ -14,7 +14,7 @@
 #' @import parallel
 #' @import stringi
 
-geocoder<-function(filtered_corpus, GeoNames_output_file, maxDistance=2, nthreads=parallel::detectCores()) {
+geocoder<-function(filtered_corpus, GeoNames_output_file, maxDistance=1, nthreads=parallel::detectCores()) {
 
   geoNames<-readr::read_csv(GeoNames_output_file) %>%
     bind_rows(geocodes) %>%
