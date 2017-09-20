@@ -2,7 +2,7 @@
 #' @description The function will first try to find exact matches for the full_names column of the corpus in the full_names column of the geoNames_output_file, which will automatically be enriched with a database of geocoded Twitter locations from an earlier project. For the records that do not provide an exact match, it will then perform approximate string matching based on Levenhstein distance. The first string in the GeoNames_output_file full_names column to match with a distance of less than maxDistance will be returned.This is done in multithreaded C++ code, so it should be reasonably fast even for larger vectors. Matching the one million strings with one million candidates takes about thirty minutes on my MacBook Pro.
 #' @param filtered_corpus Output of searchCorpus
 #' @param GeoNames_output_file csv file produced with the function GeoNames()
-#' @param maxDistance Maximum Levenhstein distance to use for approximate string matching. Defaults to 2 (i.e., max 2 deletions/insertions from input string to output string)
+#' @param maxDistance Maximum Levenhstein distance to use for approximate string matching. Defaults to 1 (i.e., max 1 deletions/insertions from input string to output string)
 #' @param nthreads Number of threads to use for the approximate string matching. Defaults to the number of CPUs available on your machine.
 #'
 #' @return data.frame lat, lon columns filled in based on the geoNames_output_file
