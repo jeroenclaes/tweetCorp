@@ -47,7 +47,7 @@ geocoder<-function(filtered_corpus, GeoNames_output_file, maxDistance=1, nthread
   toBeCompleted<-toBeCompleted %>%
     left_join(key, by="full_name") %>%
     select(-full_name) %>%
-    rename(output=full_name) %>%
+    rename(full_name=output) %>%
     left_join(geoNames)
 
   exactMatches<-exactMatches %>%
