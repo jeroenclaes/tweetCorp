@@ -36,7 +36,8 @@ geocoder<-function(filtered_corpus, GeoNames_output_file, maxDistance=1, nthread
   exactMatches<-filtered_corpus %>%
     filter(is.na(lon) | is.na(lat)) %>%
     select(-lon, -lat) %>%
-    left_join(geoNames)
+    left_join(geoNames)%>%
+  mutate(lon=as.character(lon), lat=as.character(lat))
 
   toBeCompleted<- exactMatches %>%
     filter(is.na(lon) | is.na(lat)) %>%
@@ -48,7 +49,8 @@ geocoder<-function(filtered_corpus, GeoNames_output_file, maxDistance=1, nthread
     left_join(key, by="full_name") %>%
     select(-full_name) %>%
     rename(full_name=output) %>%
-    left_join(geoNames)
+    left_join(geoNames) %>%
+  mutate(lon=as.character(lon), lat=as.character(lat))
 
   exactMatches<-exactMatches %>%
     filter(is.na(lon) | is.na(lat))
