@@ -34,6 +34,8 @@ makeConcordance <- function(filtered_corpus, pattern=NULL, column = c("tagged", 
     return(data.frame(before = before, token = token, after = after, id_str = id_str,
                       stringsAsFactors = F))
   })
-  concordance <- bind_rows(lines)
-  return(left_join(concordance, dataFrame, join_by="id"))
+  concordance <- bind_rows(lines) %>%
+  left_join(dataFrame, join_by="id")) %>%
+  filter(!duplicated(after))
+  return(concordance)
 }
